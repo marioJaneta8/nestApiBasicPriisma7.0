@@ -1,0 +1,20 @@
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { UsersService } from './users.service';
+import { CreateUserDto } from './dto/createUserDto';
+import { ApiTags } from '@nestjs/swagger';
+
+@Controller()
+export class UsersController {
+  constructor(private usersService: UsersService) {}
+  @ApiTags('Users')
+  @Get('/users')
+  getUsers() {
+    return this.usersService.getUsers();
+  }
+  @ApiTags('Users')
+  @Post('/users')
+  async createUser(@Body() user: CreateUserDto) {
+    console.log('Controlador recibió:', user);
+    return this.usersService.createUser(user);
+  }
+}
